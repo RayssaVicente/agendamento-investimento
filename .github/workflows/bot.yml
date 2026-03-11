@@ -1,6 +1,7 @@
 name: Bot ações telegram
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "0 13 * * *"
     - cron: "0 15 * * *"
@@ -21,8 +22,7 @@ jobs:
           python-version: "3.11"
 
       - name: Instalar dependências
-        run: |
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
-      - name: Executar bot
+      - name: Rodar script
         run: python bot.py
