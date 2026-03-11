@@ -1,4 +1,4 @@
-pandas
 yfinance
+pandas
+matplotlib
 requests
-python-telegram-bot
