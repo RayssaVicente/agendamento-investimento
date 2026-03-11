@@ -19,6 +19,8 @@ ativos = {
     "KLBN3.SA": {"nome": "KLBN3", "tipo": "acao"},
     "SAPR4.SA": {"nome": "SAPR4", "tipo": "acao"},
     "AAPL34.SA": {"nome": "AAPL34", "tipo": "acao"},
+    "ROXO34.SA": {"nome": "ROXO34", "tipo": "acao"},
+    "AMZO34.SA": {"nome": "AMZO34", "tipo": "acao"},
     "NEWL11.SA": {"nome": "NEWL11", "tipo": "fii", "valor_patrimonial": 130.77},
     "HSLG11.SA": {"nome": "HSLG11", "tipo": "fii", "valor_patrimonial": 109.83},
     "XPLG11.SA": {"nome": "XPLG11", "tipo": "fii", "valor_patrimonial": 105.72},
