@@ -16,7 +16,7 @@ CHAT_ID = os.getenv("CHAT_ID")
 ativos = {
     "ITSA3.SA": {"nome": "ITSA3", "tipo": "acao"},
     "TAEE11.SA": {"nome": "TAEE11", "tipo": "acao"},
-    "KLBN3.SA": {"nome": "TAEE11", "tipo": "acao"},
+    "KLBN3.SA": {"nome": "KLBN3", "tipo": "acao"},
     "SAPR4.SA": {"nome": "SAPR4", "tipo": "acao"},
     "AAPL34.SA": {"nome": "AAPL34", "tipo": "acao"},
     "NEWL11.SA": {"nome": "NEWL11", "tipo": "fii", "valor_patrimonial": 130.77},
