@@ -11,6 +11,9 @@ on:
 jobs:
   run-bot:
     runs-on: ubuntu-latest
+    # Permissões necessárias para o bot "commitar" o CSV de volta no GitHub
+    permissions:
+      contents: write
 
     steps:
       - name: Clonar repositório
@@ -22,7 +25,22 @@ jobs:
           python-version: "3.11"
 
       - name: Instalar dependências
-        run: pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
       - name: Rodar script
+        env:
+          # É AQUI que a mágica acontece: conecta o Secret ao Python
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
         run: python bot.py
+
+      - name: Salvar alterações (CSV e Gráficos)
+        run: |
+          git config --global user.name 'GitHub Actions Bot'
+          git config --global user.email 'actions@github.com'
+          git add historico.csv dados/ranking.csv graficos/rendimento.png
+          # O "|| exit 0" evita que o workflow dê erro se não houver mudança nos dados
+          git commit -m "Auto: Atualizando indicadores e gráficos" || exit 0
+          git push
