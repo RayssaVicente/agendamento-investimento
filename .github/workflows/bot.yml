@@ -5,7 +5,7 @@ on:
   schedule:
     - cron: "0 13 * * *"
     - cron: "0 15 * * *"
-    - cron: "0 17 * * *"
+    - cron: "0 18 * * *"
     - cron: "0 19 * * *"
 
 jobs:
@@ -26,27 +26,27 @@ jobs:
       - name: Instalar dependências
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          # Instalação explícita para garantir que os módulos sejam encontrados
+          pip install requests yfinance supabase python-dotenv
+          # Se tiver mais libs no requirements.txt, rode o comando abaixo também:
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Rodar script
         env:
-          # Segredos do Telegram
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
-          # Segredos do Supabase (ADICIONEI AQUI)
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_KEY }}
+          # Certifique-se que o nome do segredo no GitHub é exatamente SUPABASE_KEY
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }} 
           TZ: "America/Sao_Paulo"
         run: |
-          # Primeiro roda o bot principal
           python bot.py
-          # Em seguida roda a verificação de metas (o seu novo arquivo de lógica)
           python -c "from db_config import verificar_metas_trade; verificar_metas_trade()"
 
-      - name: Salvar alterações (CSV e Gráficos)
+      - name: Salvar alterações
         run: |
           git config --global user.name 'GitHub Actions Bot'
           git config --global user.email 'actions@github.com'
-          git add historico.csv dados/ranking.csv graficos/rendimento.png
+          git add historico.csv dados/ranking.csv graficos/rendimento.png || echo "Arquivos não encontrados, pulando..."
           git commit -m "Auto: Atualizando indicadores e gráficos" || exit 0
           git push
