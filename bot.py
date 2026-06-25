@@ -10,6 +10,7 @@ from analise_ativos import dados_mercado
 
 from metas import verificar_metas_trade
 
+
 # ================= CONFIG =================
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
