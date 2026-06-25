@@ -35,7 +35,7 @@ jobs:
           CHAT_ID: ${{ secrets.CHAT_ID }}
           # Segredos do Supabase (ADICIONEI AQUI)
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_KEY }}
           TZ: "America/Sao_Paulo"
         run: |
           # Primeiro roda o bot principal
