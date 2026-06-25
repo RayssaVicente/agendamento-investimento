@@ -41,7 +41,7 @@ jobs:
           TZ: "America/Sao_Paulo"
         run: |
           python bot.py
-          
+          python -c "from metas import verificar_metas_trade; from bot import enviar_telegram; verificar_metas_trade(enviar_telegram)"
 
       - name: Salvar alterações
         run: |
