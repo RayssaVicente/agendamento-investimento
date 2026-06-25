@@ -8,6 +8,8 @@ from salvar_dados import salvar_historico, gerar_ranking
 from graficos import gerar_grafico_rendimento
 from analise_ativos import dados_mercado
 
+from metas import verificar_metas_trade
+
 # ================= CONFIG =================
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -135,6 +137,9 @@ def rodar_bot():
     if gerar_grafico_rendimento():
         enviar_grafico_telegram() # Envia a imagem .png
         enviar_documento_telegram("historico.csv", "📈 Histórico completo de preços")
+
+    # Verifica metas da carteira
+    verificar_metas_trade(enviar_telegram)
 
 if __name__ == "__main__":
     rodar_bot()
