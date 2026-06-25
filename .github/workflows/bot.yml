@@ -11,7 +11,6 @@ on:
 jobs:
   run-bot:
     runs-on: ubuntu-latest
-    # Permissões necessárias para o bot "commitar" o CSV de volta no GitHub
     permissions:
       contents: write
 
@@ -31,17 +30,23 @@ jobs:
 
       - name: Rodar script
         env:
-          # É AQUI que a mágica acontece: conecta o Secret ao Python
+          # Segredos do Telegram
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
+          # Segredos do Supabase (ADICIONEI AQUI)
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           TZ: "America/Sao_Paulo"
-        run: python bot.py
+        run: |
+          # Primeiro roda o bot principal
+          python bot.py
+          # Em seguida roda a verificação de metas (o seu novo arquivo de lógica)
+          python -c "from db_config import verificar_metas_trade; verificar_metas_trade()"
 
       - name: Salvar alterações (CSV e Gráficos)
         run: |
           git config --global user.name 'GitHub Actions Bot'
           git config --global user.email 'actions@github.com'
           git add historico.csv dados/ranking.csv graficos/rendimento.png
-          # O "|| exit 0" evita que o workflow dê erro se não houver mudança nos dados
           git commit -m "Auto: Atualizando indicadores e gráficos" || exit 0
           git push

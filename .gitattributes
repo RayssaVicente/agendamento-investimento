@@ -1,2 +1,15 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Ignora arquivos de ambiente
+.env
+
+# Ignora pastas de ambiente virtual
+.venv
+venv/
+env/
+
+# Ignora pastas de cache do Python
+__pycache__/
+*.pyc
+
+# Ignora arquivos de log ou banco de dados local (se houver)
+*.log
+*.db
